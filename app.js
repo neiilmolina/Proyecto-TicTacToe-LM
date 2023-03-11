@@ -123,33 +123,30 @@ let resultado;
 
 function verGanador(turno) {
 
+    let uno;
+    let dos;
+    let tres;
     for (combos in combinacionesGanadoras) {
 
         for (num in combinacionesGanadoras[combos]) {
             if (equis.includes(combinacionesGanadoras[combos][num])) {
                 mirarCombo.push(combinacionesGanadoras[combos][num]);
-                console.log('mirarCombo ' + mirarCombo);
-                if (mirarCombo.length >= 3){
-
-                    // fallo?
-                    while(cont < combinacionesGanadoras.length && !ganador ){
-                        if (cont < 3 && combinacionesGanadoras[combos].includes(mirarCombo[cont])){
-                            encontrado = true;
-                        } else if (!combinacionesGanadoras[combos].includes(mirarCombo[cont])){
-                            encontrado = false;
-                        }
-                        if (encontrado && cont >= 2){
-                            ganador = true;
-                        }else{
-                            mirarCombo.pop();
-                        }
-                        cont++;
-                    }
-                    cont = 0;
-                }
+                
             } 
         }
     }
+
+    for(i = 0; i < combinacionesGanadoras.length ; i++ ){
+
+
+        for(j = 0; j < combinacionesGanadoras[i].length ; j++){
+            
+            if(equis.includes(combinacionesGanadoras[i][j])){
+
+            }
+        }
+    }
+
     if (ganador){
         if (turno){
             console.log('Gandador O');
