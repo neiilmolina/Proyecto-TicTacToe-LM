@@ -27,6 +27,9 @@ let combinacionesGanadoras = [
     [2, 5, 8]
 ];
 
+let longitudCombinacionesGanadoras = combinacionesGanadoras.length;
+let longitudCombo;
+
 /**
  * Recorrer las casillas que tengo en array casillas
  * Comprobar el contenido de cada una
@@ -75,117 +78,152 @@ let terminar = true
 
 let equis = [];
 let circulo = [];
+let casillasLlenas = [];
 
 let contX = 0;
 let contO = 0;
+let contTablas = 0;
+let verContador = 0;
+
+let uno = document.getElementById('uno');
+let dos = document.getElementById('dos');
+let tres = document.getElementById('tres');
+
+/**
+ * @description Función que sirve para añadir una X o O en una casilla
+ * @param numero
+ * @returns NO
+ */
 
 function agregarFicha(numero) {
-    console.log('Has hecho un click en la casilla ' + numero);
-
-    /**
-     * Cuando se activa esta función por el evento del click
-     * es necesario eliminar el click del div
-     */
-
-    // casillas[numero].removeAtribute('onclick');
 
     if (turno) {
         casillas[numero].textContent = 'X';
+        casillas[numero].style.color = 'blue';
         casillas[numero].removeAttribute('onclick');
+        casillasLlenas.push(casillas[numero]);
         equis.push(numero);
-        console.log( 'equis '+ equis);
+        console.log('equis ' + equis);
         turno = false;
     } else {
         casillas[numero].textContent = 'O';
+        casillas[numero].style.color = 'red';
         casillas[numero].removeAttribute('onclick');
+        casillasLlenas.push(casillas[numero]);
         circulo.push(numero);
         console.log(circulo);
         turno = true;
     }
 
-    if (equis.length >= 3 ){
-        verGanador(turno);
+
+    ganador = verGanador();
+
+    if (ganador) {
+        if (turno) {
+            console.log('Gandador O');
+            contO++;
+            verContador = 1;
+        } else {
+            console.log('Ganador X');
+            contX++;
+            verContador = 2;
+        }
+    } else {
+        console.log('No hay Ganador');
+        contTablas++;
+        verContador = 3;
     }
+    subirContador(verContador);
 }
 
 let mirarCombo = [];
-let cont = 0;
-let encontrado = false;
-let ganador = false; 
+let contI = 0;
+let contJ = 0;
+let encontradoCombo = false;
+let encontradoPosicion = true;
+let ganador = false;
 let resultado;
 
 /**
  * @description Función donde se mira el ganador. Se recorre el array de combinacionesGanadoras y se va comparando con otro array en el cual se
  *  meten valores. 
- * @param turno
- * @returns boolean
+ * @param turno (boolean)
+ * @returns boolean (ganador)
  */
 
-function verGanador(turno) {
+function verGanador() {
 
-    let uno;
-    let dos;
-    let tres;
-    for (combos in combinacionesGanadoras) {
-
-        for (num in combinacionesGanadoras[combos]) {
-            if (equis.includes(combinacionesGanadoras[combos][num])) {
-                mirarCombo.push(combinacionesGanadoras[combos][num]);
-                
-            } 
+// dos while y dos boolean para salir de los bucles?
+    while (contI < longitudCombinacionesGanadoras || !encontradoCombo){
+        longitudCombo = combinacionesGanadoras[contI].length;
+        while(contJ < longitudCombo || encontradoPosicion){
+            console.log(combinacionesGanadoras[contI][contJ])
+            if (equis.includes(combinacionesGanadoras[contI][contJ])) {
+                encontradoPosicion = true;
+            } else {
+                encontradoPosicion = false;
+            }
+            
+            contJ++;
         }
+
+        if(encontradoPosicion){
+            encontradoCombo = true;;
+        } 
+        contI++
+
     }
 
-    for(i = 0; i < combinacionesGanadoras.length ; i++ ){
+    if (encontradoPosicion){
+        ganador = true
+    }else{
+        ganador = false
+    }
+    return ganador;
+}
 
+/**
+ * @description Función que sirve para reiniciar el tablero si el usuario quiere
+ * @param NO
+ * @returns NO
+ */
 
-        for(j = 0; j < combinacionesGanadoras[i].length ; j++){
-            
-            if(equis.includes(combinacionesGanadoras[i][j])){
+function reiniciarJuego() {
 
+    for (i = 0; i < casillas.length; i++) {
+        for (j = 0; j < casillasLlenas.length; j++) {
+            if (casillas[i] == casillasLlenas[j]) {
+                casillas[i].textContent = '';
+                casillas[i].setAttribute('onclick', `agregarFicha(${i})`);
             }
         }
     }
+}
 
-    if (ganador){
-        if (turno){
-            console.log('Gandador O');
-        } else {
-            console.log('Ganador X');
-        }
-    }else{
-        console.log('No hay Ganador');
+/**
+ * @description Función que sirve para subir el recuento de algún contador dependiendo de lo que haya sucedido en la partida
+ * @param verContador
+ * @returns NO
+ */
+
+function subirContador(verContador) {
+    switch (verContador) {
+        case 1:
+            uno.textContent = `${contX}`;
+            break;
+
+        case 2:
+            dos.textContent = `${cont0}`;
+            break;
+
+        case 3:
+            tres.textContent = `${contTablas}`;
+            break;
     }
-
 }
 
 
-// function terminarJuego(){
-//     for (hola in casillas){
-//         if(casillas[hola].textContent != ''){
-//             terminar = false;
-//         }
-//     }
 
-//     if(terminar){
-//         for (hola in casillas){
-//             casillas[hola].textContent = '';
-//         }
-//     }
-// }
-
-
-
-/**
- * Para acbar el juego necesitamos:
- * 1. Colocar ficha
- * 2. Comprobar en cada inserción de ficha si se ha ganado el juego
- * 3. Cambiar turno 
- * 4. Cuando hay ganador, mostrar mensaje
- * 
- * OPCIONES EXTRA:
- * 1. Generar un contador de victorias y resetear el tablero
- */
 
 /*
     1. ¿hay ganador?
@@ -199,7 +237,6 @@ function verGanador(turno) {
         Reiniciar tablero (textContent setAtribute)
     
     3. Contador tiempo para cambiar de turno (extra)
-
     4. Mínimos lógicos de buen programador
         Comentarios en la cabeera de funciones
         Buenas practicas variables

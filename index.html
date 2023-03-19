@@ -7,53 +7,68 @@
     <title>Document</title>
     <style>
         body{
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 90px;
+            gap: 60px;
+            font-style:normal;
+            background-color: rgb(131, 183, 185);
         }
+        h1{
+            text-align: center;
+        }
+
         .cosas{
             display: flex;
             flex-direction: row;
             gap: 60px;
         }
         .tablero{
-            display: flex;
-            flex-wrap: wrap;
-            border: 1px solid black;
-            gap: 5px;
-            height: 620px;
-            width: 620px;
+            /* display: flex;
+            flex-wrap: wrap; */
+            height: 320px;
+            width: 320px;
+            /* flex-direction: column; */
+            display: grid;
+            grid-template-columns: repeat(3, auto) ;
+            grid-template-rows: repeat(3,auto);
         }
         .casilla{
-            border: 1px solid black;
-            height: 200px;
-            width: 200px;
-            font-size: 200px;
+            border: 1px black solid;
+            border-radius: 20%;
+            height: 100px;
+            width: 100px;
+            font-size: 100px;
             text-align: center;
+        }
+
+        .casilla:hover{
+            background-color: gainsboro;
         }
         .clasificacion{
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 70px;
+            gap: 50px;
         }
         .contador{
             border: 1px solid black;
             text-align: center;
+            font-size: small;
             width: 100px;
-            height: 80px;
+            height: 60px;
         }
 
         .jugador{
             border-bottom: 1px solid black;
         }
-
     </style>
 </head>
 <body>
+    <h1>TICTACTOE</h1>
     <div class="cosas">
         <div class="tablero">
             <div class="casilla" onclick="agregarFicha(0)"></div>
@@ -69,21 +84,22 @@
         <div class="clasificacion">
             <div class="contador">
                 <p class="jugador">Jugador O</p>
-                <p class="numero">0</p>
+                <p id="uno">0</p>
             </div>
             <div class="contador">
                 <p class="jugador">Jugador X</p>
-                <p class="numero">0</p>
+                <p id="dos">0</p>
             </div>
             <div class="contador">
                 <p class="jugador">Tablas</p>
-                <p class="numero">0</p>
+                <p id="tres">0</p>
             </div>
 
         </div>
     </div>
 
-    <button type="button">Reiniciar</button>
+    <button type="button" onclick="reiniciarJuego()">Reiniciar</button>
 </body>
 <script src="app.js"></script>
 </html>
+
