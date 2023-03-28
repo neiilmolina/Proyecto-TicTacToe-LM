@@ -1,0 +1,60 @@
+
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 60px;
+    font-style:normal;
+    background-color: rgb(131, 183, 185);
+}
+h1{
+    text-align: center;
+}
+
+.cosas{
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+.tablero{
+    /* display: flex;
+    flex-wrap: wrap; */
+    height: 320px;
+    width: 320px;
+    /* flex-direction: column; */
+    display: grid;
+    grid-template-columns: repeat(3, auto) ;
+    grid-template-rows: repeat(3,auto);
+}
+.casilla{
+    border: 1px black solid;
+    border-radius: 20%;
+    height: 100px;
+    width: 100px;
+    font-size: 100px;
+    text-align: center;
+}
+
+.casilla:hover{
+    background-color: gainsboro;
+}
+.clasificacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+.contador{
+    border: 1px solid black;
+    text-align: center;
+    font-size: small;
+    width: 100px;
+    height: 60px;
+}
+
+.jugador{
+    border-bottom: 1px solid black;
+}

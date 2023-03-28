@@ -74,7 +74,6 @@ let longitudCombo;
  */
 
 let turno = true;
-let terminar = true
 
 let equis = [];
 let circulo = [];
@@ -83,11 +82,16 @@ let casillasLlenas = [];
 let contX = 0;
 let contO = 0;
 let contTablas = 0;
-let verContador = 0;
 
 let uno = document.getElementById('uno');
 let dos = document.getElementById('dos');
 let tres = document.getElementById('tres');
+
+let encontradoCombo = false;
+let ganador = false;
+let posicion1;
+let posicion2;
+let posicion3;
 
 /**
  * @description Función que sirve para añadir una X o O en una casilla
@@ -103,7 +107,6 @@ function agregarFicha(numero) {
         casillas[numero].removeAttribute('onclick');
         casillasLlenas.push(casillas[numero]);
         equis.push(numero);
-        console.log('equis ' + equis);
         turno = false;
     } else {
         casillas[numero].textContent = 'O';
@@ -111,38 +114,34 @@ function agregarFicha(numero) {
         casillas[numero].removeAttribute('onclick');
         casillasLlenas.push(casillas[numero]);
         circulo.push(numero);
-        console.log(circulo);
         turno = true;
     }
 
-
-    ganador = verGanador();
+    ganador = verGanador(turno);
 
     if (ganador) {
         if (turno) {
-            console.log('Gandador O');
             contO++;
-            verContador = 1;
+            dos.textContent = `${contO}`;
+            window.alert('Ganador O')
         } else {
-            console.log('Ganador X');
             contX++;
-            verContador = 2;
+            uno.textContent = `${contX}`;
+            window.alert('Ganador X');
         }
-    } else {
-        console.log('No hay Ganador');
-        contTablas++;
-        verContador = 3;
+        reiniciarJuego();
     }
-    subirContador(verContador);
-}
 
-let mirarCombo = [];
-let contI = 0;
-let contJ = 0;
-let encontradoCombo = false;
-let encontradoPosicion = true;
-let ganador = false;
-let resultado;
+    if(casillasLlenas.length >=9){
+        contTablas++;
+        tres.textContent = `${contTablas}`;
+        window.alert('Tablas');
+        reiniciarJuego();
+    }
+
+    encontradoCombo = false;
+    ganador = false;
+}
 
 /**
  * @description Función donde se mira el ganador. Se recorre el array de combinacionesGanadoras y se va comparando con otro array en el cual se
@@ -151,34 +150,38 @@ let resultado;
  * @returns boolean (ganador)
  */
 
-function verGanador() {
+function verGanador(turno) {
 
-// dos while y dos boolean para salir de los bucles?
-    while (contI < longitudCombinacionesGanadoras || !encontradoCombo){
-        longitudCombo = combinacionesGanadoras[contI].length;
-        while(contJ < longitudCombo || encontradoPosicion){
-            console.log(combinacionesGanadoras[contI][contJ])
-            if (equis.includes(combinacionesGanadoras[contI][contJ])) {
-                encontradoPosicion = true;
-            } else {
-                encontradoPosicion = false;
+    for (let i = 0; i < longitudCombinacionesGanadoras; i++) {
+        for (let j = 0; j < 3; j++) {
+            switch (j) {
+                case 0:
+                    posicion1 = combinacionesGanadoras[i][j];
+                    break;
+                case 1:
+                    posicion2 = combinacionesGanadoras[i][j];
+                    break;
+
+                case 2:
+                    posicion3 = combinacionesGanadoras[i][j];
+                    if(turno){
+                        if (circulo.includes(posicion1) && circulo.includes(posicion2) && circulo.includes(posicion3)) {
+                            encontradoCombo = true;
+                        } 
+                    } else{
+                        if (equis.includes(posicion1) && equis.includes(posicion2) && equis.includes(posicion3)) {
+                            encontradoCombo = true;
+                        }
+                    }
+                    break;
             }
-            
-            contJ++;
         }
 
-        if(encontradoPosicion){
-            encontradoCombo = true;;
-        } 
-        contI++
-
+        if (encontradoCombo) {
+            ganador = true;
+        }
     }
 
-    if (encontradoPosicion){
-        ganador = true
-    }else{
-        ganador = false
-    }
     return ganador;
 }
 
@@ -198,31 +201,11 @@ function reiniciarJuego() {
             }
         }
     }
+
+    equis = [];
+    circulo = [];
+    casillasLlenas = [];
 }
-
-/**
- * @description Función que sirve para subir el recuento de algún contador dependiendo de lo que haya sucedido en la partida
- * @param verContador
- * @returns NO
- */
-
-function subirContador(verContador) {
-    switch (verContador) {
-        case 1:
-            uno.textContent = `${contX}`;
-            break;
-
-        case 2:
-            dos.textContent = `${cont0}`;
-            break;
-
-        case 3:
-            tres.textContent = `${contTablas}`;
-            break;
-    }
-}
-
-
 
 
 /*
