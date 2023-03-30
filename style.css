@@ -1,11 +1,13 @@
 
-body{
+body{ 
+    padding: 0;
     margin: 0;
+    font-family: 'Itim', cursive;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 60px;
+    gap: 80px;
     font-style:normal;
     background-color: rgb(131, 183, 185);
 }
@@ -16,25 +18,24 @@ h1{
 .cosas{
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    gap: 80px;
 }
 .tablero{
-    /* display: flex;
-    flex-wrap: wrap; */
-    height: 320px;
-    width: 320px;
-    /* flex-direction: column; */
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, auto) ;
-    grid-template-rows: repeat(3,auto);
+    grid-template-columns: 40% 40% 40%;
+    grid-template-rows: 40% 40% 40%;
+    max-width: 300px;
 }
 .casilla{
-    border: 1px black solid;
-    border-radius: 20%;
-    height: 100px;
-    width: 100px;
-    font-size: 100px;
-    text-align: center;
+    border: 2px solid white;
+    min-width: 100px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    cursor: pointer;
 }
 
 .casilla:hover{
@@ -48,7 +49,7 @@ h1{
     gap: 50px;
 }
 .contador{
-    border: 1px solid black;
+    border: 2px solid black;
     text-align: center;
     font-size: small;
     width: 100px;
@@ -56,5 +57,20 @@ h1{
 }
 
 .jugador{
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
+}
+button{
+    background-color: grey;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+button:active{
+    background-color: gainsboro;
+    color: black;
 }

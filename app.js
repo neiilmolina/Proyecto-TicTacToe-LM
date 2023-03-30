@@ -28,7 +28,6 @@ let combinacionesGanadoras = [
 ];
 
 let longitudCombinacionesGanadoras = combinacionesGanadoras.length;
-let longitudCombo;
 
 /**
  * Recorrer las casillas que tengo en array casillas
@@ -103,14 +102,14 @@ function agregarFicha(numero) {
 
     if (turno) {
         casillas[numero].textContent = 'X';
-        casillas[numero].style.color = 'blue';
+        casillas[numero].style.color = 'grey';
         casillas[numero].removeAttribute('onclick');
         casillasLlenas.push(casillas[numero]);
         equis.push(numero);
         turno = false;
     } else {
         casillas[numero].textContent = 'O';
-        casillas[numero].style.color = 'red';
+        casillas[numero].style.color = 'black';
         casillas[numero].removeAttribute('onclick');
         casillasLlenas.push(casillas[numero]);
         circulo.push(numero);
