@@ -102,14 +102,14 @@ function agregarFicha(numero) {
 
     if (turno) {
         casillas[numero].textContent = 'X';
-        casillas[numero].style.color = 'grey';
+        casillas[numero].style.color = '#5089c3';
         casillas[numero].removeAttribute('onclick');
         casillasLlenas.push(casillas[numero]);
         equis.push(numero);
         turno = false;
     } else {
         casillas[numero].textContent = 'O';
-        casillas[numero].style.color = 'black';
+        casillas[numero].style.color = '#d45050';
         casillas[numero].removeAttribute('onclick');
         casillasLlenas.push(casillas[numero]);
         circulo.push(numero);

@@ -29,6 +29,7 @@ h1{
 }
 .casilla{
     border: 2px solid white;
+    background-color: rgb(167, 165, 165);
     min-width: 100px;
     min-height: 100px;
     display: flex;
@@ -50,6 +51,7 @@ h1{
 }
 .contador{
     border: 2px solid black;
+    background-color: gray;
     text-align: center;
     font-size: small;
     width: 100px;
@@ -58,6 +60,7 @@ h1{
 
 .jugador{
     border-bottom: 2px solid black;
+    background-color: gray;
 }
 button{
     background-color: grey;
@@ -73,4 +76,7 @@ button{
 button:active{
     background-color: gainsboro;
     color: black;
+    color: #5089c3;
+    color: #d45050;
 }
+
